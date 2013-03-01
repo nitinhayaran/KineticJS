@@ -119,13 +119,24 @@
                     verticalpos = (this.getHeight() - this._getTextSize(text).height - p * 2) / 2;
                 }
 
+                // Temporary fix for verticalAlign
+                // this issue is set to be resolved in ver:4.3.5
+                // https://github.com/ericdrowell/KineticJS/issues/281
+                var verticalpos = 0;
+                if(this.attrs.verticalAlign === 'bottom') {
+                    verticalpos = this.getHeight() - this._getTextSize(text).height - p * 2;
+                }
+                else if(this.attrs.verticalAlign === 'middle') {
+                    verticalpos = (this.getHeight() - this._getTextSize(text).height - p * 2) / 2;
+                }
+
                 // horizontal alignment
                 context.save();
                 if(this.getAlign() === RIGHT) {
-                    context.translate(totalWidth - width - p * 2, 0);
+                    context.translate(totalWidth - width - p * 2, verticalpos);
                 }
                 else if(this.getAlign() === CENTER) {
-                    context.translate((totalWidth - width - p * 2) / 2, 0);
+                    context.translate((totalWidth - width - p * 2) / 2, verticalpos);
                 }
 
                 this.partialText = text;
