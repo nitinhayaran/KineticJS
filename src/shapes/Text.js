@@ -107,6 +107,17 @@
                 var obj = textArr[n],
                     text = obj.text,
                     width = obj.width;
+                    
+                // Temporary fix for verticalAlign
+                // this issue is set to be resolved in ver:4.3.5
+                // https://github.com/ericdrowell/KineticJS/issues/281
+                var verticalpos = 0;
+                if(this.attrs.verticalAlign === 'bottom') {
+                    verticalpos = this.getHeight() - this._getTextSize(text).height - p * 2;
+                }
+                else if(this.attrs.verticalAlign === 'middle') {
+                    verticalpos = (this.getHeight() - this._getTextSize(text).height - p * 2) / 2;
+                }
 
                 // horizontal alignment
                 context.save();
